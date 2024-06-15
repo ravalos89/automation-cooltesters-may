@@ -92,12 +92,32 @@ public class Login {
 
     @Test
     public void test003(){
-        // Validar cuando no se mandan valores en el username y password.
+        // Validar cuando no se mandan valores(empty) en el username y password.
+
+        // Setup Chrome driver
+        ChromeOptions chromeOptions = new ChromeOptions();
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver(chromeOptions);
+
+        //Launch browser
+        driver.get("https://www.saucedemo.com/");
+
+        // Test Steps
+        driver.findElement(By.xpath("//input[@data-test='username']")).sendKeys("");
+        driver.findElement(By.xpath("//input[@data-test='password']")).sendKeys("");
+        driver.findElement(By.xpath("//*[@data-test=\"login-button\"]")).click();
+
+        String expectedResult = "Epic sadface: Username is required";
+        String actualResult = driver.findElement(By.xpath("//h3[@data-test='error']")).getText();
+
+        Assert.assertEquals(actualResult, expectedResult, "Validar cuando no se mandan valores(empty) en el username y password");
+
+        driver.close();
     }
 
     @Test
     public void test004(){
-        // Validar cuando no se mandan valores en el username y password.
+        // Validate lock user is not able to login.
     }
 
     @Test
