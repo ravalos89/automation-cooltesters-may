@@ -17,6 +17,8 @@ import java.time.Duration;
 
 public class Login {
 
+    // LINEAR SCRIPTING
+
     @Test
     public void test001(){
 
@@ -46,10 +48,16 @@ public class Login {
         // Espera Explicita - esta relacionada a un objeto en especifico
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("app_logo")));
+        boolean isCarritoDisplayed;
+        // Try/Catch
+        try{
+            isCarritoDisplayed = driver.findElement(By.id("shopping-cart-container")).isDisplayed();
+        }catch(Exception e){
+            e.printStackTrace();
+            isCarritoDisplayed = false;
+        }
 
-        boolean isCarritoDisplayed = driver.findElement(By.id("shopping_cart_container")).isDisplayed();
         Assert.assertTrue(isCarritoDisplayed, "Validate users is logged successfully"); // VALIDACION
-
     }
 
     @Test
